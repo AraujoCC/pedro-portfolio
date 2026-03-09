@@ -1,0 +1,8 @@
+/* Hero-specific CSS supplement */
+
+.h-grid-overlay {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 70px 70px;
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 42%, black, transparent);
+}
