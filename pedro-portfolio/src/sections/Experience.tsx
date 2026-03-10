@@ -60,7 +60,7 @@ export default function Experience() {
       <section
         id="experience"
         ref={sectionRef}
-        className="py-28 lg:py-36"
+        className="py-36 lg:py-48"
         style={{ background: "linear-gradient(180deg,#000 0%,#080808 100%)" }}
       >
         <Container>

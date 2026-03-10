@@ -43,7 +43,7 @@ export default function Tech() {
     <section
       id="tech"
       ref={sectionRef}
-      className="py-28 lg:py-36 bg-black"
+      className="py-36 lg:py-48 bg-black"
     >
       <Container>
         <div className="reveal">
