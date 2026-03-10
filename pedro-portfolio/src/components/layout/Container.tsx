@@ -9,8 +9,9 @@ interface ContainerProps {
 
 export default function Container({ children, className, as: Tag = "div" }: ContainerProps) {
   return (
-    <Tag className={clsx("mx-auto w-full max-w-[1140px] px-6 lg:px-12", className)}>
+    <Tag className={clsx("mx-auto w-full max-w-[1140px] px-8 lg:px-16", className)}>
       {children}
     </Tag>
   );
 }
+ 

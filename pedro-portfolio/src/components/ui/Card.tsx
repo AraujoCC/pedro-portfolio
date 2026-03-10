@@ -1,15 +1,17 @@
-import { type ReactNode } from "react";
+import { type ReactNode, type CSSProperties } from "react";
 import clsx from "clsx";
 
 interface CardProps {
   children: ReactNode;
   className?: string;
   hover?: boolean;
+  style?: CSSProperties;
 }
 
-export default function Card({ children, className, hover = true }: CardProps) {
+export default function Card({ children, className, hover = true, style }: CardProps) {
   return (
     <div
+      style={style}
       className={clsx(
         "relative overflow-hidden rounded-md border border-white/[0.07] bg-white/[0.026] backdrop-blur-sm",
         "before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.14] before:to-transparent",

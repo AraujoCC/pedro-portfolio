@@ -30,7 +30,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-28 lg:py-36 bg-black">
+    <section id="projects" ref={sectionRef} className="py-36 lg:py-48 bg-black">
       <Container>
         <SectionEyebrow number="04" label="Projects" />
         <h2
