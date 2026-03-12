@@ -9,16 +9,8 @@ import Footer from "@/components/Footer";
 
 function Divider() {
   return (
-    <div className="relative w-full flex items-center justify-center py-2">
-      <div style={{
-        width: "100%", maxWidth: 1100, margin: "0 auto",
-        padding: "0 2rem",
-      }}>
-        <div style={{
-          height: 1,
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
-        }} />
-      </div>
+    <div style={{ width: "100%", maxWidth: 1100, margin: "0 auto", padding: "0 2rem" }}>
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)" }} />
     </div>
   );
 }
