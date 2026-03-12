@@ -19,7 +19,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="section-wrap" style={{ background: "linear-gradient(180deg,#000 0%,#080808 100%)" }}>
+    <section id="about" ref={sectionRef} className="section-wrap" >
       <div className="section-inner">
         <div className="about-grid">
           <div className="about-text">

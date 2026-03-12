@@ -42,7 +42,7 @@ export default function Experience() {
 
   return (
     <>
-      <section id="experience" ref={sectionRef} className="section-wrap" style={{ background: "linear-gradient(180deg,#000 0%,#080808 100%)" }}>
+      <section id="experience" ref={sectionRef} className="section-wrap">
         <div className="section-inner">
           <div className="eyebrow reveal">
             <span className="eyebrow-num">03</span>

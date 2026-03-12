@@ -16,6 +16,19 @@ const PROJECT_IMAGES: Record<string, string> = {
   hayhgang: "/projects/hayhgang.png",
 };
 
+const linkStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  gap: "0.3rem",
+  fontFamily: "var(--font-mono)",
+  fontSize: "0.62rem",
+  textTransform: "uppercase",
+  letterSpacing: "0.08em",
+  color: "rgba(255,255,255,0.3)",
+  textDecoration: "none",
+  transition: "color 0.28s",
+};
+
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -29,23 +42,25 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="section-wrap" style={{ background: "#000" }}>
+    <section id="projects" ref={sectionRef} className="section-wrap">
       <div className="section-inner">
         <div className="eyebrow reveal">
           <span className="eyebrow-num">04</span>
           <div className="eyebrow-line" />
           <span className="eyebrow-label">Projects</span>
         </div>
-        <h2 className="section-title reveal">Selected<br /><span className="dim">work.</span></h2>
+        <h2 className="section-title reveal">
+          Selected<br /><span className="dim">work.</span>
+        </h2>
 
-        <div className="projects-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", width: "100%", margin: "0 auto" }}>
           {projects.map((project, idx) => (
             <div
               key={project.id}
               className="card reveal"
               style={{ display: "flex", flexDirection: "column", transitionDelay: `${idx * 0.08}s` } as React.CSSProperties}
             >
-              {/* Image / mockup */}
+              {/* Image */}
               <div style={{ height: 200, position: "relative", overflow: "hidden", background: "#080808" }}>
                 {PROJECT_IMAGES[project.id] ? (
                   <Image
@@ -56,17 +71,8 @@ export default function Projects() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 ) : (
-                  /* Fallback para projetos sem imagem */
-                  <div style={{
-                    width: "100%", height: "100%",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    background: "linear-gradient(135deg,#080808,#0f0f10)",
-                  }}>
-                    <div style={{
-                      width: "70%", background: "#0a0a0a", borderRadius: 8,
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      overflow: "hidden",
-                    }}>
+                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#080808,#0f0f10)", position: "relative" }}>
+                    <div style={{ width: "70%", background: "#0a0a0a", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", overflow: "hidden" }}>
                       <div style={{ background: "#111", padding: "6px 10px", display: "flex", gap: 5, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
                         <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#ff5f57", display: "inline-block" }} />
                         <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#febc2e", display: "inline-block" }} />
@@ -77,11 +83,9 @@ export default function Projects() {
                         <div style={{ width: "40%", height: 4, background: "rgba(255,255,255,0.07)", borderRadius: 2 }} />
                       </div>
                     </div>
-                    <span style={{
-                      position: "absolute", bottom: 4, right: 14,
-                      fontWeight: 800, fontSize: "3.5rem",
-                      color: "rgba(255,255,255,0.04)", lineHeight: 1,
-                    }}>{project.number}</span>
+                    <span style={{ position: "absolute", bottom: 4, right: 14, fontWeight: 800, fontSize: "3.5rem", color: "rgba(255,255,255,0.04)", lineHeight: 1 }}>
+                      {project.number}
+                    </span>
                   </div>
                 )}
               </div>
@@ -90,13 +94,9 @@ export default function Projects() {
               <div style={{ padding: "1.5rem 1.75rem 1.75rem", flex: 1, display: "flex", flexDirection: "column" }}>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "0.875rem" }}>
                   {project.tags.map((tag) => (
-                    <span key={tag} style={{
-                      fontFamily: "var(--font-mono)", fontSize: "0.56rem",
-                      letterSpacing: "0.08em", textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.3)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      padding: "0.18rem 0.6rem", borderRadius: 2,
-                    }}>{tag}</span>
+                    <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "0.56rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", border: "1px solid rgba(255,255,255,0.08)", padding: "0.18rem 0.6rem", borderRadius: 2 }}>
+                      {tag}
+                    </span>
                   ))}
                 </div>
 
@@ -110,11 +110,7 @@ export default function Projects() {
 
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.32rem", marginBottom: "1.25rem" }}>
                   {project.features.map((f) => (
-                    <li key={f} style={{
-                      fontFamily: "var(--font-mono)", fontSize: "0.62rem",
-                      color: "rgba(255,255,255,0.3)", paddingLeft: "0.875rem",
-                      position: "relative", letterSpacing: "0.03em",
-                    }}>
+                    <li key={f} style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "rgba(255,255,255,0.3)", paddingLeft: "0.875rem", position: "relative", letterSpacing: "0.03em" }}>
                       <span style={{ position: "absolute", left: 0, color: "rgba(255,255,255,0.2)" }}>{">"}</span>
                       {f}
                     </li>
@@ -122,16 +118,22 @@ export default function Projects() {
                 </ul>
 
                 <div style={{ display: "flex", gap: "0.875rem", marginTop: "auto" }}>
-                  <a href={project.github} target="_blank" rel="noopener noreferrer"
-                    style={{ display: "flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-mono)", fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,0.3)", textDecoration: "none", transition: "color 0.28s" }}
+                  
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={linkStyle}
                     onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
                     onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
                   >
                     <ArrowIcon /> GitHub
                   </a>
                   {project.demo && (
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer"
-                      style={{ display: "flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-mono)", fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(255,255,255,0.3)", textDecoration: "none", transition: "color 0.28s" }}
+                    
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={linkStyle}
                       onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
                       onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
                     >
