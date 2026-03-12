@@ -1,9 +1,89 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { projects } from "@/data/projects";
-import Container from "./layout/Container";
-import SectionEyebrow from "./ui/SectionEyebrow";
-import Card from "./ui/Card";
+
+function BrowserMockup({ color, number }: { color: string; number: string }) {
+  return (
+    <div style={{
+      width: "100%", height: "100%", position: "relative",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      background: "linear-gradient(135deg, #080808, #0f0f10)",
+      overflow: "hidden",
+    }}>
+      {/* Glow */}
+      <div style={{
+        position: "absolute", width: 200, height: 200, borderRadius: "50%",
+        background: color, filter: "blur(60px)", opacity: 0.08,
+        top: -40, left: -20, pointerEvents: "none",
+      }} />
+
+      {/* Browser frame */}
+      <div style={{
+        width: "78%", background: "#0a0a0a",
+        borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 8px 40px rgba(0,0,0,0.8)",
+        overflow: "hidden", position: "relative", zIndex: 1,
+      }}>
+        {/* Title bar */}
+        <div style={{
+          background: "#111", padding: "6px 10px",
+          display: "flex", alignItems: "center", gap: 5,
+          borderBottom: "1px solid rgba(255,255,255,0.07)",
+        }}>
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#ff5f57", display: "inline-block" }} />
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#febc2e", display: "inline-block" }} />
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#28c840", display: "inline-block" }} />
+          <div style={{
+            flex: 1, height: 12, background: "rgba(255,255,255,0.05)",
+            borderRadius: 20, marginLeft: 6,
+          }} />
+        </div>
+
+        {/* Screen content */}
+        <div style={{ padding: "10px 12px", display: "flex", flexDirection: "column", gap: 6 }}>
+          {/* Navbar sim */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+            <div style={{ width: 28, height: 5, background: "rgba(255,255,255,0.15)", borderRadius: 3 }} />
+            <div style={{ display: "flex", gap: 5 }}>
+              {[1,2,3].map(i => <div key={i} style={{ width: 18, height: 4, background: "rgba(255,255,255,0.07)", borderRadius: 2 }} />)}
+            </div>
+          </div>
+          {/* Hero block */}
+          <div style={{ background: `rgba(${hexToRgb(color)},0.06)`, borderRadius: 4, padding: "8px 10px" }}>
+            <div style={{ width: "60%", height: 6, background: "rgba(255,255,255,0.18)", borderRadius: 3, marginBottom: 5 }} />
+            <div style={{ width: "40%", height: 4, background: "rgba(255,255,255,0.08)", borderRadius: 2, marginBottom: 8 }} />
+            <div style={{ width: 32, height: 10, background: `rgba(${hexToRgb(color)},0.35)`, borderRadius: 2 }} />
+          </div>
+          {/* Cards row */}
+          <div style={{ display: "flex", gap: 5, marginTop: 2 }}>
+            {[0.9, 0.6, 0.75].map((op, i) => (
+              <div key={i} style={{
+                flex: 1, height: 22, borderRadius: 3,
+                background: `rgba(255,255,255,${op * 0.05})`,
+                border: "1px solid rgba(255,255,255,0.06)",
+              }} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Big number bg */}
+      <span style={{
+        position: "absolute", bottom: 4, right: 14,
+        fontFamily: "var(--font-body)", fontWeight: 800,
+        fontSize: "3.5rem", color: "rgba(255,255,255,0.04)", lineHeight: 1,
+        userSelect: "none",
+      }}>{number}</span>
+    </div>
+  );
+}
+
+function hexToRgb(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `${r},${g},${b}`;
+}
 
 function ArrowIcon() {
   return (
@@ -18,11 +98,7 @@ export default function Projects() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      },
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
       { threshold: 0.1, rootMargin: "0px 0px -45px 0px" }
     );
     sectionRef.current?.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
@@ -30,152 +106,99 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-36 lg:py-48 bg-black">
-      <Container>
-        <SectionEyebrow number="04" label="Projects" />
-        <h2
-          className="reveal font-body font-bold tracking-[-0.035em] leading-[1.04] mb-14"
-          style={{ fontSize: "clamp(2.2rem,4.5vw,3.8rem)" }}
-        >
-          Selected
-          <br />
-          <span className="font-light text-white/55">work.</span>
-        </h2>
+    <section id="projects" ref={sectionRef} className="section-wrap" style={{ background: "#000" }}>
+      <div className="section-inner">
+        <div className="eyebrow reveal">
+          <span className="eyebrow-num">04</span>
+          <div className="eyebrow-line" />
+          <span className="eyebrow-label">Projects</span>
+        </div>
+        <h2 className="section-title reveal">Selected<br /><span className="dim">work.</span></h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="projects-grid">
           {projects.map((project, idx) => (
-            <Card
+            <div
               key={project.id}
-              className={`reveal flex flex-col cursor-none`}
-              style={{ transitionDelay: `${idx * 0.08}s` } as React.CSSProperties}
+              className="card reveal"
+              style={{
+                display: "flex", flexDirection: "column",
+                transitionDelay: `${idx * 0.08}s`,
+              } as React.CSSProperties}
             >
-              {/* Visual header */}
-              <div
-                className="relative h-44 flex items-center justify-center overflow-hidden"
-                style={{ background: "linear-gradient(135deg,#080808,#0f0f10)" }}
-              >
-                {/* Glow blob */}
-                <div
-                  className="absolute rounded-full opacity-10 blur-[42px] transition-opacity duration-500 group-hover:opacity-20"
-                  style={{
-                    width: 220,
-                    height: 220,
-                    background: project.glowColor,
-                    top: -50,
-                    left: -30,
-                  }}
-                />
-                {/* Grid */}
-                <div
-                  className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-400"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px)",
-                    backgroundSize: "34px 34px",
-                  }}
-                />
-                {/* Number */}
-                <span className="absolute bottom-1 right-4 font-body font-bold text-[4rem] text-white/[0.04] leading-none select-none">
-                  {project.number}
-                </span>
-                {/* Decorative SVG */}
-                <ProjectIcon index={idx} />
+              {/* Mockup visual */}
+              <div style={{ height: 175, position: "relative", overflow: "hidden" }}>
+                <BrowserMockup color={project.glowColor} number={project.number} />
               </div>
 
               {/* Body */}
-              <div className="p-6 flex-1 flex flex-col">
+              <div style={{ padding: "1.5rem 1.75rem 1.75rem", flex: 1, display: "flex", flexDirection: "column" }}>
                 {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-3.5">
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "0.875rem" }}>
                   {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-[0.56rem] tracking-[0.08em] uppercase text-white/30 border border-white/[0.08] px-2 py-0.5 rounded-sm transition-all duration-300"
-                    >
-                      {tag}
-                    </span>
+                    <span key={tag} style={{
+                      fontFamily: "var(--font-mono)", fontSize: "0.56rem",
+                      letterSpacing: "0.08em", textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.3)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      padding: "0.18rem 0.6rem", borderRadius: 2,
+                    }}>{tag}</span>
                   ))}
                 </div>
 
-                <h3 className="font-body font-bold text-[1.1rem] tracking-[-0.02em] text-white mb-2 transition-all duration-300 hover:text-metal">
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, letterSpacing: "-0.02em", color: "#fff", marginBottom: "0.45rem" }}>
                   {project.title}
                 </h3>
 
-                <p className="text-[0.875rem] leading-[1.72] text-white/55 mb-4 flex-1">
+                <p style={{ fontSize: "0.875rem", lineHeight: 1.72, color: "rgba(255,255,255,0.55)", marginBottom: "1rem", flex: 1 }}>
                   {project.description}
                 </p>
 
-                <ul className="flex flex-col gap-1.5 mb-5">
+                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.32rem", marginBottom: "1.25rem" }}>
                   {project.features.map((f) => (
-                    <li
-                      key={f}
-                      className="font-mono text-[0.62rem] tracking-[0.03em] text-white/30 pl-4 relative leading-relaxed before:content-['>'] before:absolute before:left-0 before:text-white/25"
-                    >
+                    <li key={f} style={{
+                      fontFamily: "var(--font-mono)", fontSize: "0.62rem",
+                      color: "rgba(255,255,255,0.3)", paddingLeft: "0.875rem",
+                      position: "relative", letterSpacing: "0.03em",
+                    }}>
+                      <span style={{ position: "absolute", left: 0, color: "rgba(255,255,255,0.2)" }}>{">"}</span>
                       {f}
                     </li>
                   ))}
                 </ul>
 
-                {/* Links */}
-                <div className="flex gap-4 mt-auto">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.08em] text-white/30 hover:text-white transition-colors duration-300 cursor-none"
+                <div style={{ display: "flex", gap: "0.875rem", marginTop: "auto" }}>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" style={{
+                    display: "flex", alignItems: "center", gap: "0.3rem",
+                    fontFamily: "var(--font-mono)", fontSize: "0.62rem",
+                    textTransform: "uppercase", letterSpacing: "0.08em",
+                    color: "rgba(255,255,255,0.3)", textDecoration: "none",
+                    transition: "color 0.28s",
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
                   >
                     <ArrowIcon /> GitHub
                   </a>
                   {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.08em] text-white/30 hover:text-white transition-colors duration-300 cursor-none"
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer" style={{
+                      display: "flex", alignItems: "center", gap: "0.3rem",
+                      fontFamily: "var(--font-mono)", fontSize: "0.62rem",
+                      textTransform: "uppercase", letterSpacing: "0.08em",
+                      color: "rgba(255,255,255,0.3)", textDecoration: "none",
+                      transition: "color 0.28s",
+                    }}
+                      onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
                     >
                       <ArrowIcon /> Live Demo
                     </a>
                   )}
                 </div>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
-  );
-}
-
-function ProjectIcon({ index }: { index: number }) {
-  if (index === 0)
-    return (
-      <svg width="68" height="68" viewBox="0 0 68 68" fill="none" className="relative z-10">
-        <rect x="7" y="7" width="23" height="23" rx="2" stroke="rgba(255,255,255,.22)" strokeWidth="1.2" fill="rgba(255,255,255,.04)" />
-        <rect x="38" y="7" width="23" height="23" rx="2" stroke="rgba(255,255,255,.12)" strokeWidth="1.2" fill="rgba(255,255,255,.02)" />
-        <rect x="7" y="38" width="23" height="23" rx="2" stroke="rgba(255,255,255,.12)" strokeWidth="1.2" fill="rgba(255,255,255,.02)" />
-        <rect x="38" y="38" width="23" height="23" rx="2" stroke="rgba(255,255,255,.08)" strokeWidth="1.2" fill="rgba(255,255,255,.02)" />
-        <line x1="30" y1="18" x2="38" y2="18" stroke="rgba(255,255,255,.18)" strokeWidth="1" />
-        <line x1="18" y1="30" x2="18" y2="38" stroke="rgba(255,255,255,.18)" strokeWidth="1" />
-        <line x1="49" y1="30" x2="49" y2="38" stroke="rgba(255,255,255,.12)" strokeWidth="1" />
-        <line x1="30" y1="49" x2="38" y2="49" stroke="rgba(255,255,255,.12)" strokeWidth="1" />
-      </svg>
-    );
-  if (index === 1)
-    return (
-      <svg width="68" height="68" viewBox="0 0 68 68" fill="none" className="relative z-10">
-        <rect x="10" y="18" width="48" height="28" rx="3" stroke="rgba(255,255,255,.18)" strokeWidth="1.2" fill="rgba(255,255,255,.025)" />
-        <rect x="18" y="24" width="13" height="13" rx="2" fill="rgba(255,255,255,.07)" />
-        <rect x="37" y="24" width="14" height="4" rx="1" fill="rgba(255,255,255,.1)" />
-        <rect x="37" y="32" width="10" height="3" rx="1" fill="rgba(255,255,255,.06)" />
-        <line x1="18" y1="46" x2="50" y2="46" stroke="rgba(255,255,255,.08)" strokeWidth="1" />
-      </svg>
-    );
-  return (
-    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" className="relative z-10">
-      <rect x="9" y="22" width="50" height="8" rx="2" stroke="rgba(255,255,255,.18)" strokeWidth="1.2" fill="rgba(255,255,255,.025)" />
-      <rect x="9" y="34" width="50" height="8" rx="2" stroke="rgba(255,255,255,.1)" strokeWidth="1.2" fill="rgba(255,255,255,.015)" />
-      <rect x="9" y="46" width="50" height="8" rx="2" stroke="rgba(255,255,255,.07)" strokeWidth="1.2" fill="rgba(255,255,255,.01)" />
-      <circle cx="16" cy="26" r="2.5" fill="rgba(255,255,255,.28)" />
-      <rect x="23" y="24.5" width="18" height="3" rx="1" fill="rgba(255,255,255,.14)" />
-    </svg>
   );
 }
