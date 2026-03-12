@@ -1,4 +1,6 @@
-"use client";
+Vejo o problema — as tags <a estão sumindo toda vez que você cola o código. Isso acontece porque o editor está interpretando o <a como HTML.
+Abra o arquivo no VS Code, seleciona tudo (Ctrl+A), deleta tudo e cola exatamente isto:
+tsx"use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { projects } from "@/data/projects";
@@ -28,6 +30,21 @@ const linkStyle: React.CSSProperties = {
   textDecoration: "none",
   transition: "color 0.28s",
 };
+
+function ProjectLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={linkStyle}
+      onMouseEnter={e => { e.currentTarget.style.color = "#fff"; }}
+      onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.3)"; }}
+    >
+      {children}
+    </a>
+  );
+}
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -60,7 +77,6 @@ export default function Projects() {
               className="card reveal"
               style={{ display: "flex", flexDirection: "column", transitionDelay: `${idx * 0.08}s` } as React.CSSProperties}
             >
-              {/* Image */}
               <div style={{ height: 200, position: "relative", overflow: "hidden", background: "#080808" }}>
                 {PROJECT_IMAGES[project.id] ? (
                   <Image
@@ -90,7 +106,6 @@ export default function Projects() {
                 )}
               </div>
 
-              {/* Body */}
               <div style={{ padding: "1.5rem 1.75rem 1.75rem", flex: 1, display: "flex", flexDirection: "column" }}>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "0.875rem" }}>
                   {project.tags.map((tag) => (
@@ -118,27 +133,13 @@ export default function Projects() {
                 </ul>
 
                 <div style={{ display: "flex", gap: "0.875rem", marginTop: "auto" }}>
-                  
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={linkStyle}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
-                  >
+                  <ProjectLink href={project.github}>
                     <ArrowIcon /> GitHub
-                  </a>
+                  </ProjectLink>
                   {project.demo && (
-                    
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={linkStyle}
-                      onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}
-                    >
+                    <ProjectLink href={project.demo}>
                       <ArrowIcon /> Live Demo
-                    </a>
+                    </ProjectLink>
                   )}
                 </div>
               </div>
