@@ -18,11 +18,11 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) #000; }
-body { background: #000; color: #fff; font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; cursor: none; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+body { background: transparent; color: #fff; font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; cursor: none; }
 
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 2px; }
 
 body::after {
@@ -38,6 +38,7 @@ body::after {
 /* ── LAYOUT CORE ─────────────────────────────── */
 .section-wrap {
   padding: var(--section-py) var(--px);
+  background: transparent;
 }
 
 .section-inner {

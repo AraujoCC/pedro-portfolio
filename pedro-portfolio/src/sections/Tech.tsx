@@ -28,7 +28,7 @@ export default function Tech() {
   }, []);
 
   return (
-    <section id="tech" ref={sectionRef} className="section-wrap" style={{ background: "#000" }}>
+    <section id="tech" ref={sectionRef} className="section-wrap">
       <div className="section-inner">
         <div className="eyebrow reveal">
           <span className="eyebrow-num">02</span>

@@ -1,6 +1,4 @@
-Vejo o problema — as tags <a estão sumindo toda vez que você cola o código. Isso acontece porque o editor está interpretando o <a como HTML.
-Abra o arquivo no VS Code, seleciona tudo (Ctrl+A), deleta tudo e cola exatamente isto:
-tsx"use client";
+"use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { projects } from "@/data/projects";
