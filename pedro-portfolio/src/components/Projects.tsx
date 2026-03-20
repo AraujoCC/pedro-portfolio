@@ -117,7 +117,7 @@ export default function Projects() {
                     alt={project.title}
                     fill
                     style={{ objectFit: "cover", objectPosition: "top" }}
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#080808,#0f0f10)", position: "relative" }}>
@@ -178,7 +178,7 @@ export default function Projects() {
 
                 {/* Buttons */}
                 <div style={{ display: "flex", gap: "0.6rem", marginTop: "auto", flexWrap: "wrap" }}>
-                  
+                  <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -189,7 +189,7 @@ export default function Projects() {
                     <GitHubIcon /> GitHub
                   </a>
                   {project.demo && (
-                    
+                    <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
