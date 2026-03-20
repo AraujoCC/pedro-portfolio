@@ -84,21 +84,31 @@ export default function Hero() {
 
           {/* Description */}
           <p
-            className="max-w-[510px] text-[0.96rem] leading-[1.85] text-white/55 mb-11 opacity-0"
+            className="max-w-[510px] text-[0.96rem] leading-[1.85] text-white/55 mb-4 opacity-0"
             style={{
               animation:
                 "fade-up 0.7s 0.88s cubic-bezier(0.16,1,0.3,1) forwards",
             }}
           >
-            Computer Science student focused on building scalable backend
-            systems and modern full stack applications.
+            Backend-focused Software Engineer building scalable APIs and modern
+            full stack applications.
+          </p>
+          <p
+            className="max-w-[510px] text-[0.875rem] leading-[1.75] text-white/38 mb-11 opacity-0 font-mono"
+            style={{
+              animation:
+                "fade-up 0.7s 0.96s cubic-bezier(0.16,1,0.3,1) forwards",
+            }}
+          >
+            Specialized in Java, Spring Boot and TypeScript ecosystems.
             <br />
-            <br />
-            Currently seeking an opportunity as a{" "}
-            <strong className="text-white font-semibold">
-              Backend or Full Stack Developer Intern
-            </strong>
-            .
+            <span className="text-white/55 mt-1 block">
+              Currently seeking a{" "}
+              <strong className="text-white font-semibold">
+                Backend or Full Stack Developer Internship
+              </strong>
+              .
+            </span>
           </p>
 
           {/* Actions */}
@@ -160,8 +170,7 @@ export default function Hero() {
       <div
         className="absolute bottom-9 left-8 lg:left-16 z-10 flex items-center gap-2.5 opacity-0"
         style={{
-          animation:
-            "fade-up 0.6s 1.55s cubic-bezier(0.16,1,0.3,1) forwards",
+          animation: "fade-up 0.6s 1.55s cubic-bezier(0.16,1,0.3,1) forwards",
         }}
       >
         <div
